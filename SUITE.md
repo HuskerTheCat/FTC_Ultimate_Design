@@ -17,3 +17,4 @@ The FTC Ultimate apps, Design, [Inventory](https://github.com/HuskerTheCat/FTC_U
 ## Changes
 
 - 2026-10-18: Design started with Inventory's team, join and hub code (Scout's version). Combined `firestore.rules`: Inventory's rules unchanged (version 5), Scout's section unchanged (`scoutRulesVersion` 1), plus Design's section (`designRulesVersion` 1, only `designRulesVersion/{version}` so far). Inventory's and Scout's repos don't have Design's section yet.
+- 2026-10-18: Home page: the line between Sign in and Join code is now exactly centered (it was 6px right of center). CSS only (`.split` in `src/style.css`, computers and tablets block). Same fix made in Inventory, Scout and Design.
