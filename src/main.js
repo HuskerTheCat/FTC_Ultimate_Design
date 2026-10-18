@@ -1,0 +1,41 @@
+// The welcome screen, copied from Inventory. Not wired up yet, so every control is disabled under the development banner.
+const PROGRAMS = ['FTC', 'FRC', 'FLL', 'Other'];
+
+const app = document.querySelector('#app');
+
+function renderWelcome() {
+  app.innerHTML = `
+    <main class="center wide">
+      <h1 class="brand"><span>FTC Ultimate <span class="app-name">Design</span></span></h1>
+      <div class="card split">
+        <form id="signin">
+          <h2>Sign in to your team</h2>
+          <div class="teamid">
+            <select name="program" aria-label="Program">${PROGRAMS.map((p) => `<option>${p}</option>`).join('')}</select>
+            <input name="teamNumber" required inputmode="numeric" pattern="[1-9][0-9]{0,5}" placeholder="Team number, e.g. 12345" />
+          </div>
+          <button>Next</button>
+        </form>
+        <form id="join">
+          <h2>New to the team? Enter your join code</h2>
+          <input name="code" required autocapitalize="off" autocomplete="off" spellcheck="false" placeholder="Join code" />
+          <div class="row">
+            <button>Join team</button>
+            <button type="button" class="secondary">Scan QR</button>
+          </div>
+        </form>
+      </div>
+      <div class="card">
+        <h2>Set up a new team</h2>
+        <button class="secondary">Start setup</button>
+      </div>
+      <div class="card">
+        <h2>Just looking?</h2>
+        <button class="secondary">Try the demo</button>
+      </div>
+      <button class="guides-link">Guides</button>
+    </main>`;
+  for (const control of app.querySelectorAll('button, input, select')) control.disabled = true;
+}
+
+renderWelcome();
