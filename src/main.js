@@ -12,7 +12,7 @@ function renderWelcome() {
           <div id="apps-menu" class="menu" hidden>
             <h3>FTC Ultimate</h3>
             <a class="menu-item" href="https://huskerthecat.github.io/FTC_Ultimate_Inventory/"><span class="app-icon inventory"></span>Inventory</a>
-            <a class="menu-item" href="https://huskerthecat.github.io/FTC_Ultimate_Scout/"><span class="app-icon scout"></span>Scout</a>
+            <a class="menu-item" href="https://huskerthecat.github.io/FTC_Ultimate_Competition/"><span class="app-icon competition"></span>Competition</a>
             <button class="menu-item" aria-current="true"><span class="app-icon design"></span>Design</button>
           </div>
         </div>

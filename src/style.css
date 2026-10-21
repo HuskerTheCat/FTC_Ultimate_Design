@@ -1,7 +1,7 @@
-@import '@fontsource/barlow/latin-400.css';
-@import '@fontsource/barlow/latin-500.css';
-@import '@fontsource/barlow/latin-600.css';
-@import '@fontsource/barlow/latin-700.css';
+@import '@fontsource/saira/latin-400.css';
+@import '@fontsource/saira/latin-500.css';
+@import '@fontsource/saira/latin-600.css';
+@import '@fontsource/saira/latin-700.css';
 @import '@fontsource/orbitron/latin-500.css';
 @import '@fontsource/orbitron/latin-800.css';
 
@@ -51,7 +51,7 @@ body {
   margin: 0;
   background: var(--bg);
   color: var(--text);
-  font: 16px/1.45 Barlow, system-ui, sans-serif;
+  font: 16px/1.45 Saira, system-ui, sans-serif;
   font-variant-numeric: tabular-nums;
   padding: env(safe-area-inset-top) 0 env(safe-area-inset-bottom);
 }
@@ -72,16 +72,21 @@ a { color: var(--accent); }
   background: url(../public/icon.svg) center / contain no-repeat;
 }
 .center > .card { box-shadow: none; }
-/* The home page's cube opens the app switcher: Inventory, Scout and Design, each with its own cube. */
+/* The home page's cube opens the app switcher: Inventory, Competition and Design, each with its own cube. */
 .center > .lockup { display: flex; flex-direction: column; align-items: flex-start; gap: 16px; }
 .menuwrap { position: relative; display: flex; }
 #apps-toggle { flex: none; min-height: 0; margin: -3px; padding: 3px; background: none; border: none; }
 #apps-toggle:hover, #apps-toggle[aria-expanded="true"] { background: var(--raised); }
 .app-icon { display: block; width: 52px; height: 52px; background: center / contain no-repeat; }
 .app-icon.inventory { background-image: url(./inventory.svg); }
-.app-icon.scout { background-image: url(./scout.svg); }
+.app-icon.competition { background-image: url(./competition.svg); }
 .app-icon.design { background-image: url(../public/icon.svg); }
 #apps-menu .app-icon { flex: none; width: 28px; height: 28px; }
+#apps-menu .menu-item, #apps-menu h3 { font-family: Orbitron, sans-serif; }
+#apps-menu .menu-item:has(.inventory) { color: #5b9bff; }
+#apps-menu .menu-item:has(.competition) { color: #ffa53d; }
+:root[data-theme="light"] #apps-menu .menu-item:has(.inventory) { color: #2563d9; }
+:root[data-theme="light"] #apps-menu .menu-item:has(.competition) { color: #c25f08; }
 /* Menus, as in Inventory. */
 .menu { position: absolute; z-index: 20; top: calc(100% + 6px); left: 0; min-width: 260px; padding: 6px; background: var(--raised); border: 1px solid var(--border); border-radius: 12px; box-shadow: var(--float-shadow); }
 .menu[hidden] { display: none; }
