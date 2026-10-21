@@ -12,7 +12,7 @@ The FTC Ultimate apps, Design, [Inventory](https://github.com/HuskerTheCat/FTC_U
 - **Hub**: `ultimate-inventory-hub` (`hub.rules` in Inventory's repo). Team-level data only, never anything about a person.
 - **Collection names**: Inventory's are unprefixed; Scout's start with `scout`, Design's with `design`.
 - **Device storage**: every website shares `huskerthecat.github.io`. Design uses `ftc-design-*` keys and starts Firebase as the named app `design`.
-- **Brand**: the split cube logo (Inventory blue, Scout orange, Design green), Orbitron for names, the topo background.
+- **Brand**: the split cube logo, Orbitron for names, Saira for all other text (`@fontsource/saira`, weights 400-700), the topo background. App colors, dark mode / light mode: Inventory blue `#5b9bff` / `#2563d9`, Competition orange `#ffa53d` / `#c25f08`, Design green `#45d08f` / `#16804d`. The app switcher shows each app's name in Orbitron in its color. New screens in any app use these.
 
 ## Changes
 
