@@ -10,7 +10,7 @@ function renderWelcome() {
     <main class="center wide">
       <div class="lockup">
         <div class="menuwrap">
-          <button id="apps-toggle" aria-label="FTC Ultimate apps" title="FTC Ultimate apps" aria-haspopup="true" aria-expanded="false" aria-controls="apps-menu"><span class="app-icon design"></span></button>
+          <button id="apps-toggle" aria-label="FTC Ultimate apps" title="FTC Ultimate apps" aria-haspopup="true" aria-expanded="false" aria-controls="apps-menu"><span class="app-icon design"></span><svg class="chevron" viewBox="0 0 12 12" width="12" height="12" aria-hidden="true"><path d="M2.5 4.5 6 8l3.5-3.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
           <div id="apps-menu" class="menu" hidden>
             <h3>FTC Ultimate</h3>
             <a class="menu-item" href="https://huskerthecat.github.io/FTC_Ultimate_Inventory/" data-app="inventory"><span class="app-icon inventory"></span>Inventory</a>
