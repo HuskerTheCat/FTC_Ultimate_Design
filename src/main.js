@@ -1,3 +1,5 @@
+import { openApp, prefetchApps } from './switching.js';
+
 // The welcome screen, copied from Inventory. Not wired up yet, so every control but the app switcher is disabled under the development banner.
 const PROGRAMS = ['FTC', 'FRC', 'FLL', 'Other'];
 
@@ -11,8 +13,8 @@ function renderWelcome() {
           <button id="apps-toggle" aria-label="FTC Ultimate apps" title="FTC Ultimate apps" aria-haspopup="true" aria-expanded="false" aria-controls="apps-menu"><span class="app-icon design"></span></button>
           <div id="apps-menu" class="menu" hidden>
             <h3>FTC Ultimate</h3>
-            <a class="menu-item" href="https://huskerthecat.github.io/FTC_Ultimate_Inventory/"><span class="app-icon inventory"></span>Inventory</a>
-            <a class="menu-item" href="https://huskerthecat.github.io/FTC_Ultimate_Competition/"><span class="app-icon competition"></span>Competition</a>
+            <a class="menu-item" href="https://huskerthecat.github.io/FTC_Ultimate_Inventory/" data-app="inventory"><span class="app-icon inventory"></span>Inventory</a>
+            <a class="menu-item" href="https://huskerthecat.github.io/FTC_Ultimate_Competition/" data-app="competition"><span class="app-icon competition"></span>Competition</a>
             <button class="menu-item" aria-current="true"><span class="app-icon design"></span>Design</button>
           </div>
         </div>
@@ -58,8 +60,19 @@ function wireAppSwitcher() {
     menu.hidden = !open;
     toggle.setAttribute('aria-expanded', String(open));
   };
-  toggle.onclick = () => show(menu.hidden);
-  menu.onclick = (e) => e.target.closest('a, button') && show(false);
+  toggle.onclick = () => {
+    show(menu.hidden);
+    prefetchApps(menu);
+  };
+  // Another app fades into its loading screen first (see switching.js). Ctrl, Shift or Cmd and a click opens the link as the browser normally would.
+  menu.onclick = (e) => {
+    const link = e.target.closest('a[data-app]');
+    if (link && !(e.ctrlKey || e.shiftKey || e.metaKey)) {
+      e.preventDefault();
+      openApp(link);
+    }
+    if (e.target.closest('a, button')) show(false);
+  };
   document.addEventListener('pointerdown', (e) => e.target.closest('.menuwrap') || show(false));
   document.addEventListener('keydown', (e) => e.key === 'Escape' && show(false));
 }
