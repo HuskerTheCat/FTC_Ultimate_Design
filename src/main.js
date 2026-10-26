@@ -1,4 +1,5 @@
 import { openApp, prefetchApps } from './switching.js';
+import { CUBE, morphCube } from './cube.js';
 
 // The welcome screen, copied from Inventory. Not wired up yet, so every control but the app switcher is disabled under the development banner.
 const PROGRAMS = ['FTC', 'FRC', 'FLL', 'Other'];
@@ -10,7 +11,7 @@ function renderWelcome() {
     <main class="center wide">
       <div class="lockup">
         <div class="menuwrap">
-          <button id="apps-toggle" aria-label="FTC Ultimate apps" title="FTC Ultimate apps" aria-haspopup="true" aria-expanded="false" aria-controls="apps-menu"><span class="app-icon design"></span><svg class="chevron" viewBox="0 0 12 12" width="12" height="12" aria-hidden="true"><path d="M2.5 4.5 6 8l3.5-3.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          <button id="apps-toggle" aria-label="FTC Ultimate apps" title="FTC Ultimate apps" aria-haspopup="true" aria-expanded="false" aria-controls="apps-menu">${CUBE}<svg class="chevron" viewBox="0 0 12 12" width="12" height="12" aria-hidden="true"><path d="M2.5 4.5 6 8l3.5-3.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
           <div id="apps-menu" class="menu" hidden>
             <h3>FTC Ultimate</h3>
             <a class="menu-item" href="https://huskerthecat.github.io/FTC_Ultimate_Inventory/" data-app="inventory"><span class="app-icon inventory"></span>Inventory</a>
@@ -56,22 +57,29 @@ function renderWelcome() {
 function wireAppSwitcher() {
   const toggle = app.querySelector('#apps-toggle');
   const menu = app.querySelector('#apps-menu');
+  const cube = toggle.querySelector('.cube');
+  // The cube turns into the suite cube while the menu is open.
   const show = (open) => {
+    if (menu.hidden === !open) return;
     menu.hidden = !open;
     toggle.setAttribute('aria-expanded', String(open));
+    morphCube(cube, open ? 'suite' : 'design');
   };
   toggle.onclick = () => {
     show(menu.hidden);
     prefetchApps(menu);
   };
-  // Another app fades into its loading screen first (see switching.js). Ctrl, Shift or Cmd and a click opens the link as the browser normally would.
-  menu.onclick = (e) => {
-    const link = e.target.closest('a[data-app]');
-    if (link && !(e.ctrlKey || e.shiftKey || e.metaKey)) {
-      e.preventDefault();
-      openApp(link);
-    }
+  // Another app: the cube turns into that app's cube, then the page fades into its loading screen (see switching.js).
+  // Ctrl, Shift or Cmd and a click opens the link as the browser normally would, without the cube.
+  menu.onclick = async (e) => {
     if (e.target.closest('a, button')) show(false);
+    const link = e.target.closest('a[data-app]');
+    if (!link || e.ctrlKey || e.shiftKey || e.metaKey) return;
+    e.preventDefault();
+    await morphCube(cube, link.dataset.app);
+    // Coming back to this page (the other app opened beside it, or the browser's Back button), the cube is Design's again.
+    setTimeout(() => morphCube(cube, 'design'), 2000);
+    openApp(link);
   };
   document.addEventListener('pointerdown', (e) => e.target.closest('.menuwrap') || show(false));
   document.addEventListener('keydown', (e) => e.key === 'Escape' && show(false));
